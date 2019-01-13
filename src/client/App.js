@@ -1,24 +1,11 @@
 import React, { Component } from 'react';
 import './app.css';
 import Main from './components/Main';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faSearch, faCarCrash } from '@fortawesome/free-solid-svg-icons'
+library.add([faSearch, faCarCrash])
 
 export default class App extends Component {
-  //state = { accidents: null };
-
-  // componentDidMount() {
-  //   fetch('/api/accidents')
-  //     .then(res => res.json())
-  //     .then(data => this.setState({ accidents: data.accidents }));
-  // }
-
-  // render() {
-  //   const { accidents } = this.state;
-  //   return (
-  //     <div>
-  //       {accidents ? <h1>Test</h1> : <h1>Loading.. please wait!</h1>}
-  //     </div>
-  //   );
-  // }
   render() {
     return <Main />
   }

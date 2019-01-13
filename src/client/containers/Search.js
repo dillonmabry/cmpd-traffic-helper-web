@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Form, FormGroup, Input} from 'reactstrap';
 import Accident from '../components/Accident';
 import Accidents from '../components/Accidents';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -16,16 +17,15 @@ export default class Search extends React.Component {
         const { target } = event;
         const value = target.value;
         const { name } = target;
-        await this.setState({
-            [name]: value,
-            accidents: []
-        });
+        await this.setState({ [name]: value });
     }
     submitForm(e) {
         e.preventDefault();
-        fetch(`/api/accidents/search?term=${this.state.term}`)
-            .then(res => res.json())
-            .then(res => this.setState({ accidents: res.accidents }));
+        if (this.state.term) {
+            fetch(`/api/accidents/search?term=${this.state.term}`)
+                .then(res => res.json())
+                .then(res => this.setState({ accidents: res.accidents }));
+        }
     }
     render() {
         const AccidentsList = this.state.accidents.map((accident, i) => {
@@ -35,15 +35,16 @@ export default class Search extends React.Component {
         })
         return (
             <div>
-            <Form onSubmit={ (e) => this.submitForm(e) }>
-                <FormGroup className="mb-2">
-                <Input type="text" name="term" id="term"
-                        placeholder="Search accidents..." 
-                        value={this.state.term}
-                        onChange={ (e) => this.handleChange(e) }/>
-                </FormGroup>
-                <Button>Search</Button>
-            </Form>
+                <Form onSubmit={(e) => this.submitForm(e)}>
+                    <FormGroup className="mb-2">
+                        <FontAwesomeIcon icon="search" />
+                        <Input type="text" name="term" id="term"
+                            placeholder="Search accidents..."
+                            value={this.state.term}
+                            onChange={(e) => this.handleChange(e)} />
+                    </FormGroup>
+                    <Button>Search</Button>
+                </Form>
             { <Accidents accidentsList={AccidentsList} /> }
             </div>
         );

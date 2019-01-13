@@ -8,6 +8,7 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default class NavMenu extends React.Component {
   constructor(props) {
@@ -27,7 +28,8 @@ export default class NavMenu extends React.Component {
     return (
       <div>
         <Navbar className="navbar navbar-dark bg-dark" expand="md">
-          <NavbarBrand href="/">CMPD Traffic Portal Helper</NavbarBrand>
+          <FontAwesomeIcon style={{color: "#FFF", fontSize: "large"}} icon="car-crash" />
+          <NavbarBrand className="ml-2" href="/">CMPD Traffic Portal Helper</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
