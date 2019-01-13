@@ -1,0 +1,17 @@
+import React from 'react';
+import NavMenu from './Navbar';
+import Section from './Section';
+import Search from '../containers/Search';
+
+export default class Main extends React.Component {
+  render() {
+    return (
+      <div>
+        <NavMenu />
+        <div className="container-fluid mt-2">
+          <Section title={"Search Accidents"} body={<Search />} />
+        </div>
+      </div>
+    );
+  }
+}

@@ -1,0 +1,65 @@
+<div class="card">
+  <div class="card-body">
+    {{#unless search}}
+    <div class="mb-8">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="/accidents?page={{minus page}}">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="/accidents?page={{plus page}}">Next</a></li>
+      </ul>
+    </div>
+    {{/unless}}
+    <ul class="list-group">
+      {{#each accidents}}
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#{{event_no}}" aria-expanded="true"
+              aria-controls="collapseOne">
+              <div class="d-flex w-100">
+                <h6 class="mb-1">{{address}}</h6>
+              </div>
+            </button>
+            <small>{{datetime_add}}</small>
+          </div>
+          <div id="{{event_no}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <li class="list-group-item flex-column align-items-start">
+                <div>
+                  <label for="event_no">Event No:</label>
+                  <div class="input-group mb-3">
+                    <input type="text" id="event_no" class="form-control" readonly value="{{event_no}}" />
+                  </div>
+                  <label for="address">Address:</label>
+                  <div class="input-group mb-3">
+                    <input type="text" id="address" class="form-control" readonly value="{{address}}" />
+                  </div>
+                  <label for="event_desc">Event Description:</label>
+                  <div class="input-group mb-3">
+                    <textarea id="event_desc" class="form-control" readonly>{{event_desc}}</textarea>
+                  </div>
+                  <label for="event_type">Event Type:</label>
+                  <div class="input-group mb-3">
+                    <input type="text" id="event_type" class="form-control" readonly value="{{event_type}}" />
+                  </div>
+                  <label for="temp">Temperature (k):</label>
+                  <div class="input-group mb-3">
+                    <input type="text" id="temp" class="form-control" readonly value="{{weatherInfo.main.temp}}" />
+                  </div>
+                  <label for="weather">Weather Info:</label>
+                  <div class="input-group mb-3">
+                    {{#each weatherInfo.weather}}
+                    <span class="badge badge-primary badge-pill">{{main}}</span>&nbsp;
+                    {{/each}}
+                  </div>
+                </div>
+              </li>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{else}}
+      <small>No accidents available</small>
+      {{/each}}
+    </ul>
+  </div>
+</div>
