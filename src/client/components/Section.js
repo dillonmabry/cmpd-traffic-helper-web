@@ -3,7 +3,7 @@ import { Card, CardBody, CardTitle} from 'reactstrap';
 
 const Section = ({ title, body }) => (
     <div>
-      <Card className="container-fluid">
+      <Card className="container-fluid mb-2">
         <CardBody className="mb-2">
           <h5>{title}</h5>
           {body}

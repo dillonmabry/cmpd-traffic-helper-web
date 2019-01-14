@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Form, FormGroup, Input} from 'reactstrap';
-import Accident from '../components/Accident';
-import Accidents from '../components/Accidents';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Accident from './Accident';
+import Accidents from '../components/AccidentsList';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class Search extends React.Component {
     constructor(props) {
