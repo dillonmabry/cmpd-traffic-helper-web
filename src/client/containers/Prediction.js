@@ -1,15 +1,13 @@
 import React from 'react';
 import { Button, Form, FormGroup, Input} from 'reactstrap';
-import Accident from './Accident';
-import Accidents from '../components/AccidentsList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default class Search extends React.Component {
+export default class Prediction extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             term: '',
-            accidents: []
+            prediction: ''
         }
         this.setField = this.setField.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,9 +15,10 @@ export default class Search extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         if (this.state.term) {
-            fetch(`/api/accidents/search?term=${this.state.term}`)
-                .then(res => res.json())
-                .then(res => this.setState({ accidents: res.accidents }));
+            // fetch(`/api/accidents/predict`, {
+            //     method: 'post',
+            //     body: data,
+            // }).then(res => this.setState({ prediction: res }));
         }
     }
     setField(field, e) {
@@ -28,25 +27,22 @@ export default class Search extends React.Component {
         })
       }
     render() {
-        const AccidentsList = this.state.accidents.map((accident, i) => {
-            return (
-                <Accident key={i} accident={accident} />
-            )
-        })
+
         const { term } = this.state;
         return (
             <div>
                 <Form className="mb-2" onSubmit={this.handleSubmit}>
                     <FormGroup className="mb-2">
-                        <FontAwesomeIcon icon="search" />
-                        <Input type="text" name="term" id="term"
+                        <FontAwesomeIcon icon="question-circle" />
+                        {/* TODO: Insert input form for prediction analysis and make generic form */}
+                        {/* <Input type="text" name="term" id="term"
                             placeholder="Search accidents..."
                             value={term} 
-                            onChange={this.setField.bind(null, 'term')} />
+                            onChange={this.setField.bind(null, 'term')} /> */}
                     </FormGroup>
-                    <Button>Search</Button>
+                    <Button>Predict</Button>
                 </Form>
-            { <Accidents accidentsList={AccidentsList} /> }
+            { this.state.prediction ? <small></small> : null }
             </div>
         );
     }

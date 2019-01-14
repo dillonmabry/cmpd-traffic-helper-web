@@ -37,6 +37,7 @@ router.get('/', (req, res) => {
   Accident.find()
   .limit(SEARCH_LIMIT)
   .skip(SEARCH_LIMIT * page)
+  .sort('-date')
   .then(accidents => Accident.countDocuments()
     .then((count) => {
       res.json({
@@ -52,6 +53,7 @@ router.get('/search', (req, res) => {
   let { term } = req.query;
   term = term.toUpperCase();
   Accident.find({"address": { $regex: '.*' + term + '.*' }})
+  .sort('-datetime_add')
   .then((accidents) => {
     res.json({
       accidents,

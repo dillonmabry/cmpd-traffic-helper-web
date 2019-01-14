@@ -3,11 +3,15 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 
 const Accidents = ({ accidentsList }) => (
     <div>
-    { accidentsList ? <ListGroup flush>
-        <ListGroupItem>
-            {accidentsList}
-        </ListGroupItem>
-    </ListGroup> : null }
+    { accidentsList.length > 0 ? 
+        <div>
+            <small>{ accidentsList.length } results returned</small>
+            <ListGroup flush>
+                <ListGroupItem>
+                    {accidentsList}
+                </ListGroupItem>
+            </ListGroup>
+        </div> : null }
     </div>
   )
 
