@@ -11,15 +11,10 @@ export default class Search extends React.Component {
             term: '',
             accidents: []
         }
-        this.handleChange = this.handleChange.bind(this);
+        this.setField = this.setField.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleChange = async (event) => {
-        const { target } = event;
-        const value = target.value;
-        const { name } = target;
-        await this.setState({ [name]: value });
-    }
-    submitForm(e) {
+    handleSubmit(e) {
         e.preventDefault();
         if (this.state.term) {
             fetch(`/api/accidents/search?term=${this.state.term}`)
@@ -27,21 +22,27 @@ export default class Search extends React.Component {
                 .then(res => this.setState({ accidents: res.accidents }));
         }
     }
+    setField(field, e) {
+        this.setState({
+          [field]: e.target.value
+        })
+      }
     render() {
         const AccidentsList = this.state.accidents.map((accident, i) => {
             return (
                 <Accident key={i} accident={accident} />
             )
         })
+        const { term } = this.state;
         return (
             <div>
-                <Form onSubmit={(e) => this.submitForm(e)}>
+                <Form onSubmit={this.handleSubmit}>
                     <FormGroup className="mb-2">
                         <FontAwesomeIcon icon="search" />
                         <Input type="text" name="term" id="term"
                             placeholder="Search accidents..."
-                            value={this.state.term}
-                            onChange={(e) => this.handleChange(e)} />
+                            value={term} 
+                            onChange={this.setField.bind(null, 'term')} />
                     </FormGroup>
                     <Button>Search</Button>
                 </Form>
