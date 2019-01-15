@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody, CardTitle} from 'reactstrap';
+import { Card, CardBody } from 'reactstrap';
 
 const Section = ({ title, body }) => (
     <div>

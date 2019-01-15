@@ -49,5 +49,10 @@ module.exports = {
       template: './public/index.html'
     }),
     new webpack.DefinePlugin(envKeys)
-  ]
+  ],
+  resolve: {
+    alias: {
+      'react-virtualized/List': 'react-virtualized/dist/es/List',
+    }
+  }
 };
