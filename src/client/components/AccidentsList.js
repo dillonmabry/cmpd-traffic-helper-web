@@ -4,7 +4,7 @@ import { List } from 'react-virtualized';
 
 const height = 1000;
 const rowHeight = 100;
-const width = 1200;
+const width = 1000;
 
 export default class Accidents extends React.Component {
   rowRenderer = ({ index, isScrolling, key, style }) => {

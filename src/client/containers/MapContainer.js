@@ -7,12 +7,12 @@ const MAX_LAT = 35.2;
 const MAX_LONG = -80.85;
 
 const MapContainer = ({ data, layout }) => (
-    <div>
+    <div className="container-fluid mt-2">
         { data.length > 0 ?
             <Section title={"Charlotte Mecklenburg Accidents"}
                 body={
                     <Plot data={data} layout={layout}
-                        config={{ mapboxAccessToken: process.env.REACT_APP_MAPBOX_TOKEN }} />
+                        config={{ mapboxAccessToken: process.env.REACT_APP_MAPBOX_TOKEN, responsive: true }} />
                 } /> :
             <Section title={"Charlotte Mecklenburg Accidents"}
                 body={<small>Loading...</small>} />
@@ -20,7 +20,7 @@ const MapContainer = ({ data, layout }) => (
     </div>
 )
 
-export default class Accident extends React.Component {
+export default class MapBoxAccidentContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,7 +50,6 @@ export default class Accident extends React.Component {
                     };
                 });
                 var layout = {
-                    autosize: true,
                     font: {
                         color: '#212529',
                         family: 'Arial',

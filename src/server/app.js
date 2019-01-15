@@ -17,9 +17,6 @@ const app = express();
 app.use(express.static('dist'));
 
 app.use('/api/accidents', require('./routes/accidents'));
-app.get('*', (req, res) => {
-  res.status(404).send("Not found");
-});
 
 const PORT = process.env.PORT || 5000;
 
