@@ -1,12 +1,10 @@
 language: node_js
-
 node_js:
-  - 8
-
+- 8
 script:
-  - npm run build
-
-branches:
-  only:
-  - gh-pages
-  - /.*/
+- npm run build
+deploy:
+  provider: heroku
+  app: cmpd-traffic-helper
+  api_key:
+    secure: Vw3V0vyU08lfZax1UQTPYZxicSQhYYP5fuVBBl7It3OM99pQaA+Sf7dmwJ3wcTGle9vpXnhMtZIim5TukYl2+dt4Bf7AkLOq0Z7ujPyeO6n2J1ZWpA0xCybzYmFG9MFo7ElLGp3sWo8ZPPjSmWdT4srZCHjwcGkZenDrq3SPxVUuK+lxSGdAAVmQ9CLbAi7npXRu8o57sWmMsoWHQSyO4k6ZbBD92S40h6zrJ41wcIXpk6GNjZwNncazpjbTqxWAklH+MpHCgpayzGtUM/JQiwnOnzySg+NnYjzepwgntqafJhVkUAYLN0wwFlqSYtN0M3wgmj7o2+pvA8k1G82uz89abMcdTWcliOHvSS62sDR84wvno0V63bHluV5ogdSmKltnTJPK3DQD2Z6RGMB7khIkwDxur6HD+SO9Rw2ifeO+bM47eILq79abLuHJHVcEieoDSWkNo80P+0mxGS4mSX6/ub3QuS1pCg0uGG8mVF9vABwmtCJgBd6u4e3BIe9v93WQDMWgjfOTlGRJDJYg5Vv/MFclkKCMNUmmhPTQY7vM7GobDly8p14b/B2cKoafeNyEcybIYJ/Hr199D4fK2OVCXLmzr8my6pCEOgVlaBuUHD1kI+QeVSHhU41V8ZT2Jl7+lCQ7Xon5hpIZ/PVaLZB5DLyX4/KN/j2Ym2LBfDA=
