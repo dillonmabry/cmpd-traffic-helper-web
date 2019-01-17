@@ -2,7 +2,7 @@ import React from 'react';
 import Section from '../components/Section';
 import Plot from 'react-plotly.js';
 
-// Assumes dependencies on Plotly/Mapbox script src
+// Charlotte-Mecklenburg
 const MAX_LAT = 35.2;
 const MAX_LONG = -80.85;
 
@@ -11,8 +11,9 @@ const MapContainer = ({ data, layout }) => (
         { data.length > 0 ?
             <Section title={"Charlotte Mecklenburg Accidents"}
                 body={
-                    <Plot data={data} layout={layout}
-                        config={{ mapboxAccessToken: process.env.REACT_APP_MAPBOX_TOKEN, responsive: true }} />
+                    <Plot data={data} layout={layout} useResizeHandler={true}
+                        style={{width: "100%", height: "100%" }} 
+                        config={{ mapboxAccessToken: process.env.REACT_APP_MAPBOX_TOKEN }} />
                 } /> :
             <Section title={"Charlotte Mecklenburg Accidents"}
                 body={<small>Loading...</small>} />
@@ -75,7 +76,8 @@ export default class MapBoxAccidentContainer extends React.Component {
                     },
                     paper_bgcolor: '#fff',
                     plot_bgcolor: '#fff',
-                    showlegend: true
+                    showlegend: true,
+                    autosize: true
                 };
                 this.setState({ data: data, layout: layout })
             });

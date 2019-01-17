@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const db = require('./config/database');
-// const MongoClient = require("mongodb").MongoClient;
 // db.SequelizeDB.authenticate()
 //   .then(() => console.log('Database connected...'))
 //   .catch(err => console.log('Error: ' + err))

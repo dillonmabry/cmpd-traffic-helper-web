@@ -1,12 +1,14 @@
 import React from 'react';
-import { Button, Form, FormGroup, Input} from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import Section from '../components/Section';
+import DateTimePicker from 'react-datetime-picker';
 
 export default class Prediction extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            term: '',
+            road: '',
+            datetime: new Date(),
             prediction: ''
         }
         this.setField = this.setField.bind(this)
@@ -14,36 +16,55 @@ export default class Prediction extends React.Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        if (this.state.term) {
+        if (this.state.road && this.state.datetime) {
+            let data = {
+                road_name: this.state.road,
+                date_time: this.state.datetime
+            };
             // fetch(`/api/accidents/predict`, {
             //     method: 'post',
-            //     body: data,
+            //     body: JSON.stringify(data),
             // }).then(res => this.setState({ prediction: res }));
         }
     }
     setField(field, e) {
         this.setState({
-          [field]: e.target.value
+            [field]: e.target.value
         })
-      }
+    }
+    dateChange = datetime => this.setState({ datetime })
     render() {
-
-        const { term } = this.state;
+        const { 
+            road,
+            datetime
+        } = this.state;
         return (
-            <div>
-                <Form className="mb-2" onSubmit={this.handleSubmit}>
-                    <FormGroup className="mb-2">
-                        <FontAwesomeIcon icon="question-circle" />
-                        {/* TODO: Insert input form for prediction analysis and make generic form */}
-                        {/* <Input type="text" name="term" id="term"
-                            placeholder="Search accidents..."
-                            value={term} 
-                            onChange={this.setField.bind(null, 'term')} /> */}
-                    </FormGroup>
-                    <Button>Predict</Button>
-                </Form>
-            { this.state.prediction ? <small></small> : null }
-            </div>
+        <div className="container-fluid mt-2">
+            <Section title={"Accident Analysis"} body={
+                <div>
+                    <Form className="mb-2" onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                            <Input type="select" name="road" id="road" value={road}
+                                onChange={this.setField.bind(null, 'road')} placeholder="Select Road">
+                                <option>N TRYON ST</option>
+                                <option>WT HARRIS</option>
+                                <option>I-77</option>
+                                <option>I-85</option>
+                                <option>I-485</option>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <DateTimePicker
+                                onChange={this.dateChange} 
+                                value={this.state.datetime}
+                            />  
+                        </FormGroup>
+                        <Button>Predict</Button>
+                    </Form>
+                    { this.state.prediction ? <small>{this.state.prediction}</small> : null }
+                </div>
+            } />
+        </div>
         );
     }
 }

@@ -22,6 +22,7 @@ const Accident = require('../models/Accident');
 
 const SEARCH_LIMIT = 100;
 
+// Return all
 router.get('/all', (req, res) => {
   Accident.find()
   .then(accidents =>
@@ -30,6 +31,7 @@ router.get('/all', (req, res) => {
   .catch(err => console.log(err));
 });
 
+// Pagination
 router.get('/', (req, res) => {
   let { page } = req.query;
   page = page ? page : 1;
@@ -49,6 +51,7 @@ router.get('/', (req, res) => {
   .catch(err => console.log(err));
 });
 
+// Search
 router.get('/search', (req, res) => {
   let { term } = req.query;
   term = term.toUpperCase();

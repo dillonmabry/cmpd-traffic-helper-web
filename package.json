@@ -26,6 +26,7 @@
     "npm": "^6.5.0",
     "plotly.js": "^1.43.2",
     "react": "^16.7.0",
+    "react-datetime-picker": "^2.1.1",
     "react-dom": "^16.7.0",
     "react-plotly.js": "^2.2.0",
     "react-router-dom": "^4.3.1",
