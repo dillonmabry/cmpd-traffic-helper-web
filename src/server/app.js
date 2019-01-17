@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const db = require('./config/database');
+const path = require('path');
 // db.SequelizeDB.authenticate()
 //   .then(() => console.log('Database connected...'))
 //   .catch(err => console.log('Error: ' + err))
@@ -16,6 +17,9 @@ const app = express();
 app.use(express.static('dist'));
 
 app.use('/api/accidents', require('./routes/accidents'));
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../../dist', 'index.html'));
+});
 
 const PORT = process.env.PORT || 5000;
 
