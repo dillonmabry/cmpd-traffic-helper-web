@@ -11,7 +11,7 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
   return prev;
 }, {});
 
-module.exports = {
+const webPackConfig = {
   entry: ['babel-polyfill', './src/client/index.js'],
   output: {
     path: path.join(__dirname, outputDirectory),
@@ -58,3 +58,19 @@ module.exports = {
     }
   }
 };
+
+// Dev
+if(envKeys) {
+  module.exports = webPackConfig;
+// Prod (remove env keys)
+} else {
+  let prodWebPackConfig = webPackConfig.plugins = [
+    new CleanWebpackPlugin([outputDirectory]),
+    new HtmlWebpackPlugin({
+      template: './public/index.html'
+    })
+  ]
+  module.exports = prodWebPackConfig;
+}
+
+
