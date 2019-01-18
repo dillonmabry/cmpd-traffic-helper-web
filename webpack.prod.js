@@ -2,7 +2,6 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = merge(common, {
     mode: 'production',
@@ -11,6 +10,5 @@ module.exports = merge(common, {
         new HtmlWebpackPlugin({
             template: './public/index.html'
         }),
-        new BundleAnalyzerPlugin()
     ],
 });
