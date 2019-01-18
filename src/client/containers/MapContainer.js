@@ -1,24 +1,27 @@
 import React from 'react';
 import Section from '../components/Section';
 import Plot from 'react-plotly.js';
+import Container from '../components/Container';
 
 // Charlotte-Mecklenburg
 const MAX_LAT = 35.2;
 const MAX_LONG = -80.85;
 
 const MapContainer = ({ data, layout }) => (
-    <div className="container-fluid mt-2">
-        { data.length > 0 ?
-            <Section title={"Charlotte Mecklenburg Accidents"}
-                body={
-                    <Plot data={data} layout={layout} useResizeHandler={true}
-                        style={{width: "100%", height: "100%" }} 
-                        config={{ mapboxAccessToken: process.env.REACT_APP_MAPBOX_TOKEN }} />
-                } /> :
-            <Section title={"Charlotte Mecklenburg Accidents"}
-                body={<small>Loading...</small>} />
-        }
-    </div>
+    <Container main={
+        <div className="container-fluid mt-2">
+            { data.length > 0 ?
+                <Section title={"Charlotte Mecklenburg Accidents"}
+                    body={
+                        <Plot data={data} layout={layout} useResizeHandler={true}
+                            style={{width: "100%", height: "100%" }} 
+                            config={{ mapboxAccessToken: process.env.REACT_APP_MAPBOX_TOKEN }} />
+                    } /> :
+                <Section title={"Charlotte Mecklenburg Accidents"}
+                    body={<small>Loading...</small>} />
+            }
+        </div>}
+    />
 )
 
 export default class MapBoxAccidentContainer extends React.Component {

@@ -8,7 +8,8 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 export default class NavMenu extends React.Component {
   constructor(props) {
@@ -34,13 +35,13 @@ export default class NavMenu extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/">Home</NavLink>
+                <NavLink tag={Link} to="/">Home</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/accidents-analysis">Prediction Analysis</NavLink>
+                <NavLink tag={Link} to={"/accidents-analysis"}>Prediction Analysis</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/accidents-view">All Accidents</NavLink>
+                <NavLink tag={Link} to={"/accidents-view"}>All Accidents</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
