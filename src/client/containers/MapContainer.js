@@ -1,7 +1,11 @@
 import React from 'react';
 import Section from '../components/Section';
-import Plot from 'react-plotly.js';
 import Container from '../components/Container';
+import createPlotlyComponent from 'react-plotly.js/factory';
+
+// Import custom Plotly component to reduce bundle size
+const Plotly = require('../custom-modules/Plotly-ScatterMap');
+const Plot = createPlotlyComponent(Plotly);
 
 // Charlotte-Mecklenburg
 const MAX_LAT = 35.2;
