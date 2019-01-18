@@ -1,5 +1,4 @@
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     entry: ['babel-polyfill', './src/client/index.js'],
@@ -8,8 +7,6 @@ module.exports = {
         filename: 'bundle.js',
         publicPath: '/'
     },
-    target: 'node',
-    externals: [nodeExternals()],
     module: {
         rules: [
             {
