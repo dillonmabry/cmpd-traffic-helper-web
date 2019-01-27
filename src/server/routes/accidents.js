@@ -1,25 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Accident = require('../models/Accident');
-
-// const Sequelize = require('sequelize');
-// const Op = Sequelize.Op;
-
-// router.get('/', (req, res) => 
-// Accident.findAll()
-//     .then(accidents => res.render('accidents', {
-//         accidents
-//       }))
-//     .catch(err => console.log(err)));
-
-// router.get('/search', (req, res) => {
-//   let { term } = req.query;
-//   term = term.toUpperCase();
-//   Accident.findAll({ where: { address: { [Op.like]: '%' + term + '%' } } })
-//     .then(accidents => res.render('accidents', { accidents }))
-//     .catch(err => console.log(err));
-// });
-
+const { ensureAuthenticated } = require('../config/auth');
 const SEARCH_LIMIT = 100;
 
 // Return all
@@ -64,6 +46,12 @@ router.get('/search', (req, res) => {
     })
   })
   .catch(err => console.log(err));
+});
+
+// Mapbox API
+router.get('/mapbox-token', ensureAuthenticated, (req, res, next) => {
+  let token = process.env.MAPBOX_TOKEN;
+  res.json({ mapboxtoken: token });
 });
 
 module.exports = router;
