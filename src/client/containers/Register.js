@@ -31,10 +31,14 @@ export default class Register extends React.Component {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(reqBody)
                 })
-                    .then(res => res.json())
-                    .then((res) => {
-                        this.props.history.push({ pathname: '/' })
-                    });
+                    .then(res => {
+                        if (res.ok) {
+                            this.props.history.push({ pathname: '/' })
+                        } else {
+                            throw new Error("Incorrect login credentials");
+                        }
+                    })
+                    .catch((err) => console.log(err));
             }
         }
     }

@@ -9,7 +9,8 @@ export default class Search extends React.Component {
         super(props)
         this.state = {
             term: '',
-            accidents: []
+            accidents: [],
+            loading: false
         }
         this.setField = this.setField.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,9 +18,10 @@ export default class Search extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         if (this.state.term) {
+            this.setState({ loading: true });
             fetch(`/api/accidents/search?term=${this.state.term}`)
                 .then(res => res.json())
-                .then(res => this.setState({ accidents: res.accidents }));
+                .then(res => this.setState({ accidents: res.accidents, loading: false }));
         }
     }
     setField(field, e) {
@@ -33,7 +35,7 @@ export default class Search extends React.Component {
                 <Accident key={i} accident={accident} />
             )
         })
-        const { term } = this.state;
+        const { term, loading } = this.state;
         return (
             <div>
                 <Form className="mb-2" onSubmit={this.handleSubmit}>
@@ -46,7 +48,7 @@ export default class Search extends React.Component {
                     </FormGroup>
                     <Button>Search</Button>
                 </Form>
-            { <Accidents accidentsList={AccidentsList} /> }
+            { loading ? <small>Loading...</small> : <Accidents accidentsList={AccidentsList} />}
             </div>
         );
     }

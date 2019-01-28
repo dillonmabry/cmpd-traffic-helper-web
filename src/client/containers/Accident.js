@@ -1,5 +1,4 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
 import { 
   Card,
   CardHeader,
@@ -8,10 +7,10 @@ import {
   FormGroup,
   Label,
   Badge,
-  Collapse
+  Collapse,
+  Col,
+  Row
 } from 'reactstrap';
-
-//TODO: Define proptypes, setup input form controls readonly, make expandable on list
 
 export default class Accident extends React.Component {
   constructor(props) {
@@ -27,8 +26,10 @@ export default class Accident extends React.Component {
       <div>
         <Card className="mb-2">
           <CardHeader className="btn text-left" onClick={this.toggle}>
-            {this.props.accident.address}
-            <small>{this.props.accident.datetime_add}</small>
+            <Row>
+              <Col>{this.props.accident.address}</Col>
+              <Col align={"right"}><small>{this.props.accident.datetime_add}</small></Col>
+            </Row>
           </CardHeader>
           <Collapse isOpen={this.state.collapse}>
             <CardBody className="mb-2">
