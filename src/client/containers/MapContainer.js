@@ -50,7 +50,7 @@ export default class MapBoxAccidentContainer extends React.Component {
                 .then((res) => {
                     this.setState({ mapboxtoken: res.mapboxtoken });
                 }).then(
-                    fetch('/api/accidents/all', { headers: { Authorization: `Bearer ${token}` } })
+                    fetch('/api/accidents/all')
                         .then(res => res.json())
                         .then((res) => {
                             var rows = res;

@@ -33,7 +33,6 @@ export default class Register extends React.Component {
                 })
                     .then(res => res.json())
                     .then((res) => {
-                        console.log(res); 
                         this.props.history.push({ pathname: '/' })
                     });
             }
