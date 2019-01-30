@@ -1,5 +1,5 @@
 ## CMPD Traffic Helper Portal
-[![Build Status](https://travis-ci.org/dillonmabry/cmpd-traffic-helper-web.svg?branch=master)](https://travis-ci.org/dillonmabry/cmpd-traffic-helper)
+[![Build Status](https://travis-ci.org/dillonmabry/cmpd-traffic-helper-web.svg?branch=master)](https://travis-ci.org/dillonmabry/cmpd-traffic-helper-web)
 [![Node 11.8](https://img.shields.io/badge/node-11.8-blue.svg)](https://nodejs.org/en/)
 
 CMPD Traffic Portal for web interactions, based on the following sibling project: https://github.com/dillonmabry/cmpd-traffic-helper-web
