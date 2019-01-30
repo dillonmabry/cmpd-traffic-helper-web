@@ -4,6 +4,8 @@
 
 CMPD Traffic Portal for web interactions, based on the following sibling project: https://github.com/dillonmabry/cmpd-traffic-helper-web
 
+Deployment: https://cmpd-traffic-helper.herokuapp.com/
+
 ## Goals of Project
 - Search for recent accidents through an efficient storage
 - Make accident prediction/analysis based on conditions
