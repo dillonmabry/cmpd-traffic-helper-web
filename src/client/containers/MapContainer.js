@@ -12,7 +12,10 @@ const Plot = createPlotlyComponent(Plotly);
 const MAX_LAT = 35.2;
 const MAX_LONG = -80.85;
 
-const MapComponent = ({ data, layout, mapboxtoken }) => (
+// N records
+const MAX_RECORDS = 1000;
+
+const MapComponent = ({ data, layout, mapboxtoken, n_records }) => (
     <Container main={
         <div className="container-fluid mt-2">
             <div>
@@ -20,9 +23,12 @@ const MapComponent = ({ data, layout, mapboxtoken }) => (
                     data.length > 0 ?
                         <Section title={"Charlotte Mecklenburg Accidents"}
                             body={
+                                <div>
+                                <small>Returning {n_records} recent accidents</small>
                                 <Plot data={data} layout={layout} useResizeHandler={true}
                                     style={{ width: "100%", height: "100%" }}
                                     config={{ mapboxAccessToken: mapboxtoken }} />
+                                </div>
                             } /> :
                         <Section title={"Charlotte Mecklenburg Accidents"}
                             body={<small>Loading...</small>} />
@@ -39,7 +45,8 @@ export default class MapBoxAccidentContainer extends React.Component {
         this.state = {
             data: [],
             layout: {},
-            mapboxtoken: null
+            mapboxtoken: null,
+            maxRecords: MAX_RECORDS
         }
     }
     componentDidMount() {
@@ -50,10 +57,11 @@ export default class MapBoxAccidentContainer extends React.Component {
                 .then((res) => {
                     this.setState({ mapboxtoken: res.mapboxtoken });
                 }).then(
-                    fetch('/api/accidents/all')
+                    fetch('/api/accidents/top', { limit: MAX_RECORDS })
                         .then(res => res.json())
                         .then((res) => {
-                            var rows = res;
+                            // Manipulate for mapbox/plotlyJS
+                            var rows = res.accidents;
                             var classArray = unpack(rows, 'event_type');
                             var classes = [...new Set(classArray)];
                             function unpack(rows, key) {
@@ -110,7 +118,8 @@ export default class MapBoxAccidentContainer extends React.Component {
                 <MapComponent
                     data={this.state.data}
                     layout={this.state.layout}
-                    mapboxtoken={this.state.mapboxtoken} />
+                    mapboxtoken={this.state.mapboxtoken}
+                    n_records={this.state.maxRecords} />
             </div>
         )
     }
