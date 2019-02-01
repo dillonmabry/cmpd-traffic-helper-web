@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const { secret } = require('../config/jwtConfig');
+const { secret, token_expire } = require('../config/jwtConfig');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const EXPIRESIN = '24h'
 
 // Register
 router.post('/register', (req, res, next) => {
@@ -53,7 +52,7 @@ router.post('/login', (req, res, next) => {
     } else {
       req.logIn(user, err => {
         User.findOne({ username: username }).then(user => {
-          const token = jwt.sign({ username: user.username }, secret, { expiresIn: EXPIRESIN });
+          const token = jwt.sign({ username: user.username }, secret, { expiresIn: token_expire });
           res.status(200).send({
             auth: true,
             token: token,
