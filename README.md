@@ -18,9 +18,11 @@ Data used:
 - CMPD Traffic Accidents from CMPD GIS Service
 
 ## Install Instructions
+1. Create .env configuration with appropriate keys: MONGO_URI, MAPBOX_TOKEN, JWT_SECRET
+2.
 ```
 npm install
-MONGO_URI=<db> MAPBOX_TOKEN=<token> JWT_SECRET=<auth_secret> npm run dev
+npm run dev
 ```
 
 ## How to Use
