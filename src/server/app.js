@@ -1,11 +1,12 @@
+const dotenv = require('dotenv');
+dotenv.config().parsed;
 const express = require('express');
 const mongoose = require('mongoose');
-const db = require('./config/database');
 const path = require('path');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-dotenv.config().parsed;
+const logger = require('./config/winston');
+const db = require('./config/database');
 require('./config/passport');
 
 // DB
@@ -14,8 +15,8 @@ mongoose
     db.mongoURI,
     { useNewUrlParser: true }
   )
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.log(err));
+  .then(() => logger.log({ level: 'info', message: "MongoDB connected" }))
+  .catch(err => logger.log({ level: 'error', message: JSON.stringify(err) }));
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,4 +36,4 @@ app.get('*', function (req, res) {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+app.listen(PORT, logger.log({ level: 'info', message: `Server started on port ${PORT}` }));

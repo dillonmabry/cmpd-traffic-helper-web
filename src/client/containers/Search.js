@@ -12,7 +12,7 @@ export default class Search extends React.Component {
             accidents: [],
             loading: false
         }
-        this.setField = this.setField.bind(this)
+        this.setField = this.setField.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit(e) {

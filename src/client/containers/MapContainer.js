@@ -3,6 +3,7 @@ import Section from '../components/Section';
 import Container from '../components/Container';
 import createPlotlyComponent from 'react-plotly.js/factory';
 import { Link } from 'react-router-dom';
+import { Form, FormGroup, Input, Button } from 'reactstrap';
 
 // Import custom Plotly component to reduce bundle size
 const Plotly = require('../custom-modules/Plotly-ScatterMap');
@@ -12,32 +13,8 @@ const Plot = createPlotlyComponent(Plotly);
 const MAX_LAT = 35.2;
 const MAX_LONG = -80.85;
 
-// N records
+// N records initial
 const MAX_RECORDS = 1000;
-
-const MapComponent = ({ data, layout, mapboxtoken, n_records }) => (
-    <Container main={
-        <div className="container-fluid mt-2">
-            <div>
-                {mapboxtoken ?
-                    data.length > 0 ?
-                        <Section title={"Charlotte Mecklenburg Accidents"}
-                            body={
-                                <div>
-                                <small>Returning {n_records} recent accidents</small>
-                                <Plot data={data} layout={layout} useResizeHandler={true}
-                                    style={{ width: "100%", height: "100%" }}
-                                    config={{ mapboxAccessToken: mapboxtoken }} />
-                                </div>
-                            } /> :
-                        <Section title={"Charlotte Mecklenburg Accidents"}
-                            body={<small>Loading...</small>} />
-                    : <small>Missing mapbox token, not authenticated. Please <Link to={"/register"}>Register</Link> or <Link to={"/login"}>Login</Link></small>
-                }
-            </div>
-        </div>}
-    />
-)
 
 export default class MapBoxAccidentContainer extends React.Component {
     constructor(props) {
@@ -48,8 +25,10 @@ export default class MapBoxAccidentContainer extends React.Component {
             mapboxtoken: null,
             maxRecords: MAX_RECORDS
         }
+        this.setField = this.setField.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-    componentDidMount() {
+    getAccidents() {
         let token = localStorage.getItem('JWT');
         if (token) {
             fetch('/api/accidents/mapbox-token', { headers: { Authorization: `Bearer ${token}` } })
@@ -57,7 +36,7 @@ export default class MapBoxAccidentContainer extends React.Component {
                 .then((res) => {
                     this.setState({ mapboxtoken: res.mapboxtoken });
                 }).then(
-                    fetch('/api/accidents/top', { limit: MAX_RECORDS })
+                    fetch(`/api/accidents/top?limit=${this.state.maxRecords}`)
                         .then(res => res.json())
                         .then((res) => {
                             // Manipulate for mapbox/plotlyJS
@@ -112,15 +91,51 @@ export default class MapBoxAccidentContainer extends React.Component {
                 );
         }
     }
+    componentDidMount() {
+        this.getAccidents();
+    }
+    handleSubmit(e) {
+        e.preventDefault();
+        this.getAccidents();
+    }
+    setField(field, e) {
+        this.setState({
+            [field]: e.target.value
+        })
+    }
     render() {
         return (
-            <div>
-                <MapComponent
-                    data={this.state.data}
-                    layout={this.state.layout}
-                    mapboxtoken={this.state.mapboxtoken}
-                    n_records={this.state.maxRecords} />
-            </div>
+            <Container main={
+                <div className="container-fluid mt-2">
+                    {this.state.mapboxtoken ?
+                        this.state.data.length > 0 ?
+                            <Section title={"Charlotte Mecklenburg Accidents"}
+                                body={
+                                    <div>
+                                        <div>
+                                            <Form className="mb-2" onSubmit={this.handleSubmit}>
+                                                <FormGroup className="mb-2">
+                                                    <Input name="maxRecords" placeholder="Number of Accidents..." min={0} max={100000}
+                                                        type="number"
+                                                        // step="1000"
+                                                        onChange={this.setField.bind(null, 'maxRecords')}
+                                                        value={this.state.maxRecords} />
+                                                </FormGroup>
+                                                <Button>Find</Button>
+                                            </Form>
+                                        </div>
+                                        <small>Returning {this.state.maxRecords} recent accidents</small>
+                                        <Plot data={this.state.data} layout={this.state.layout} useResizeHandler={true}
+                                            style={{ width: "100%", height: "100%" }}
+                                            config={{ mapboxAccessToken: this.state.mapboxtoken }} />
+                                    </div>
+                                } /> :
+                            <Section title={"Charlotte Mecklenburg Accidents"}
+                                body={<small>Loading...</small>} />
+                        : <small>Missing mapbox token, not authenticated. Please <Link to={"/register"}>Register</Link> or <Link to={"/login"}>Login</Link></small>
+                    }
+                </div>}
+            />
         )
     }
 }

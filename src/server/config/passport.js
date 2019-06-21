@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { secret } = require('./jwtConfig');
 const BCRYPT_SALT_ROUNDS = 12;
+const logger = require('../config/winston');
 
 const passport = require('passport'),
   localStrategy = require('passport-local').Strategy,
@@ -22,7 +23,6 @@ passport.use(
         User.findOne({ username: username })
         .then(user => {
           if (user != null) {
-            console.log('username or email already taken');
             return done(null, false, {
               message: 'username or email already taken',
             });
@@ -33,7 +33,7 @@ passport.use(
                 password: hashedPassword,
                 email: req.body.email,
               }).then(user => {
-                console.log('user created');
+                logger.log({ level: 'info', message: `user created: ${username}` })
                 return done(null, user);
               });
             });
@@ -63,10 +63,8 @@ passport.use(
           } else {
             bcrypt.compare(password, user.password).then(response => {
               if (response !== true) {
-                console.log('passwords do not match');
                 return done(null, false, { message: 'passwords do not match' });
               }
-              console.log('user found & authenticated');
               return done(null, user);
             });
           }
@@ -86,14 +84,11 @@ passport.use(
   'jwt',
   new JWTstrategy(opts, (jwt_payload, done) => {
     try {
-      console.log("Searching for user");
       User.findOne({ username: jwt_payload.username })
       .then(user => {
         if (user) {
-          console.log('user found in db in passport');
           done(null, user);
         } else {
-          console.log('user not found in db');
           done(null, false);
         }
       });

@@ -4,16 +4,16 @@ const passport = require('passport');
 const { secret, token_expire } = require('../config/jwtConfig');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const logger = require('../config/winston');
 
 // Register
 router.post('/register', (req, res, next) => {
   const { username, password, email, password2 } = req.body;
   passport.authenticate('register', (err, user, info) => {
     if (err) {
-      console.log(err);
+      logger.log({ level: 'error', message: JSON.stringify(err) })
     }
     if (info != undefined) {
-      console.log(info.message);
       res.status(403).send(info.message);
     } else {
       req.logIn(user, err => {
@@ -25,7 +25,6 @@ router.post('/register', (req, res, next) => {
               email: email,
             })
             .then(() => {
-              console.log('user created in db');
               res.status(200).send({ message: 'user created' });
             });
         });
@@ -39,11 +38,9 @@ router.post('/login', (req, res, next) => {
   const { username } = req.body;
   passport.authenticate('login', (err, user, info) => {
     if (err) {
-      console.log('error');
-      console.log(err);
+      logger.log({ level: 'error', message: JSON.stringify(err) })
     }
     if (info != undefined) {
-      console.log(info.message);
       if (info.message === 'bad username') {
         res.status(401).send(info.message);
       } else {
