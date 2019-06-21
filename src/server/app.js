@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const db = require('./config/database');
 const path = require('path');
 const passport = require('passport');
-require('./config/passport');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+dotenv.config().parsed;
+require('./config/passport');
 
 // DB
 mongoose
