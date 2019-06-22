@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/dillonmabry/cmpd-traffic-helper-web.svg?branch=master)](https://travis-ci.org/dillonmabry/cmpd-traffic-helper-web)
 [![Node 11.8](https://img.shields.io/badge/node-11.8-blue.svg)](https://nodejs.org/en/)
 
-CMPD Traffic Portal for web interactions, based on the following sibling project: https://github.com/dillonmabry/cmpd-traffic-helper-web
+CMPD Traffic Portal for web interactions, based on the following parent project: https://github.com/dillonmabry/cmpd-traffic-helper-web
 
 Deployment: https://cmpd-traffic-helper.herokuapp.com/
 
@@ -15,10 +15,16 @@ APIs used:
 - Mapbox API
 
 Data used:
-- CMPD Traffic Accidents from CMPD GIS Service
+- CMPD Traffic Accidents collected from CMPD GIS Service
 
 ## Install Instructions
-Create .env configuration with appropriate keys: MONGO_URI, MAPBOX_TOKEN, JWT_SECRET
+Create .env configuration from the following:
+```
+MONGO_URI=<Your MongoDB connection string>
+MAPBOX_TOKEN=<Your Mapbox API token>
+JWT_SECRET=<Your JWT Server Secret>
+```
+Run:
 ```
 npm install
 npm run dev
@@ -27,7 +33,7 @@ npm run dev
 ## How to Use
 - Search for accidents via main
 - Predict/Analyze via Analysis
-- View all accidents via mapbox view
+- View all accidents via mapbox view (Register user first, then login for authentication for Mapbox API)
 
 ## Tests
 - TODO
