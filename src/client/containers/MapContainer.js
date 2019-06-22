@@ -124,7 +124,6 @@ export default class MapBoxAccidentContainer extends React.Component {
                                                 <Button>Find</Button>
                                             </Form>
                                         </div>
-                                        <small>Returning {this.state.maxRecords} recent accidents</small>
                                         <Plot data={this.state.data} layout={this.state.layout} useResizeHandler={true}
                                             style={{ width: "100%", height: "100%" }}
                                             config={{ mapboxAccessToken: this.state.mapboxtoken }} />

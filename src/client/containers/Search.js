@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, FormGroup, Input} from 'reactstrap';
-import Accident from './Accident';
+import Accident from '../components/Accident';
 import Accidents from '../components/AccidentsList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

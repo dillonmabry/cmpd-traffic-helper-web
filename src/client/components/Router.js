@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from '../components/Home'
+import Home from './Home'
 import MapBoxAccidentContainer from '../containers/MapContainer';
 import NotFound from './NotFound';
 import Prediction from '../containers/Prediction';
