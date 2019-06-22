@@ -5,10 +5,10 @@
   "main": "src/server/server.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "start": "node -r dotenv/config src/server/server.js",
+    "start": "node src/server/server.js",
     "client": "webpack-dev-server --open --config webpack.dev.js",
-    "server": "nodemon -r dotenv/config src/server/server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev-server": "nodemon -r dotenv/config src/server/server.js",
+    "dev": "concurrently \"npm run dev-server\" \"npm run client\"",
     "heroku-postbuild": "webpack --config webpack.prod.js"
   },
   "author": "Dillon Mabry",
