@@ -62,7 +62,10 @@ router.get('/search', (req, res) => {
 // Mapbox API
 router.get('/mapbox-token', ensureAuthenticated, (req, res, next) => {
   let token = process.env.MAPBOX_TOKEN;
-  res.json({ mapboxtoken: token });
+  if (token)
+    res.json({ mapboxtoken: token });
+  else
+    res.status(500).send('Mapboxtoken not set by environment')
 });
 
 module.exports = router;

@@ -4,7 +4,6 @@ module.exports = {
   ensureAuthenticated: function (req, res, next) {
     passport.authenticate('jwt', {session: false}, (err, user, info) => {
       if (info != undefined) {
-        console.log(info.message);
         if (info.message === 'bad username') {
           res.status(401).send(info.message);
         } else {
